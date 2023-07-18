@@ -11,7 +11,7 @@ const consultarPerson = async (evento) => {
     return;
   }
     // CONFIGURANDO LA PETICIÓN y el url de API DE PAISES ATRAVEZ DEL MMTODO GET
-    const url = `https://restcountries.com/v3.1/name/${nombrePais}`;
+    const url = `https://rickandmortyapi.com/api/character/?name=${nombrePerson}`;
     const config = {
       method: 'GET'
     };
@@ -24,15 +24,15 @@ const consultarPerson = async (evento) => {
     if (respuesta.status) {
       const data = await respuesta.json();
       const person = data[0];
-      console.log(person.name.common);
-      console.log(person.population);
-      console.log(person.timezones);
-      console.log(person.flag);
+      console.log(person.name);
+      console.log(person.status);
+      console.log(person.species);
+      console.log(person.image);
 
       document.getElementById('nombrePais').innerText = person.name.common;
-      document.getElementById('poblacionPais').innerText = person.population;
-      document.getElementById('capitalPais').innerText = person.timezones[0];
-      document.getElementById('banderaPais').src = person.flags.png;
+      document.getElementById('poblacionPais').innerText = person.status;
+      document.getElementById('capitalPais').innerText = person.species[0];
+      document.getElementById('banderaPais').src = person.image.png;
       document.getElementById('resultado').innerText = 'Fue Encontrado';
       tabla.style.display = '';
     } else {
