@@ -1,4 +1,29 @@
 //crear consuktas atravez de un elemento
+const API_URL = "https://rickandmortyapi.com/";
+
+// const HTMLResponse = document.querySelector('#app')
+// const ul = document.createElement('ul')
+
+fetch(`${API_URL}/api/character`)
+
+const xhr = new XMLHttpRequest();
+
+function onRequestHandler() {
+    if (this.readyState === 4 && this.status === 200) {
+        // console.log(this.response);  // ESTE COMANDO ES PARA QUE MANDE A LLAMAR TODA LA INFORMACION EN FORMATO TEXTO DE LOS OBJETOS
+        const data = JSON.parse(this.response);
+        console.log(data);   //ACA PODREMOS VER LA MISMA INFORMACION PERO MEJOR ESTRUCUTRADA POR NODOS PARA LLAMAR A LA INFORMACION DE UNA MANERA MAS SENCIALLA
+        // const HTMLResponse = document.querySelector('#app');
+
+        // const tpl = data.map((user) => `<li>${user.name} ${user.email}</li>`)
+        // HTMLResponse.innerHTML = `<ul>${tpl}</ul>`
+    }
+}
+
+xhr.addEventListener("load", onRequestHandler);
+xhr.open("GET", `${API_URL}/api/character`);
+xhr.send();
+
 const formul = document.querySelector('form');
 const tabla = document.querySelector('table');
 const button = document.getElementById('botonConsultar');
@@ -21,22 +46,28 @@ const consultarPerson = async (evento) => {
   try {
     // CONSULTA A LA API
     const respuesta = await fetch(url, config);
-    if (respuesta.status) {
+    if (respuesta.ok) {
       const data = await respuesta.json();
-      const person = data[0];
-      console.log(person.name);
-      console.log(person.status);
-      console.log(person.species);
-      console.log(person.image);
+      const personajes = data.results;
 
-      document.getElementById('nombrePais').innerText = person.name.common;
-      document.getElementById('poblacionPais').innerText = person.status;
-      document.getElementById('capitalPais').innerText = person.species[0];
-      document.getElementById('banderaPais').src = person.image.png;
-      document.getElementById('resultado').innerText = 'Fue Encontrado';
-      tabla.style.display = '';
+      if (personajes.length === 0) {
+        document.getElementById('resultado').innerText = 'No se encontraron personajes';
+      } else {
+        const personaje = personajes[0];
+        console.log(personaje.name);
+        console.log(personaje.status);
+        console.log(personaje.species);
+        console.log(personaje.image);
+  
+        document.getElementById('nombrePersonaje').innerText = personaje.name;
+        document.getElementById('estadoPersonaje').innerText = personaje.status;
+        document.getElementById('especiePersonaje').innerText = personaje.species;
+        document.getElementById('imagenPersonaje').src = personaje.image;
+        document.getElementById('resultado').innerText = 'Personaje encontrado';
+        tabla.style.display = '';
+      }
     } else {
-      document.getElementById('resultado').innerText = 'No se encontró';
+      document.getElementById('resultado').innerText = 'No se encontró el personaje';
     }
   } catch (error) {
     console.log(error);

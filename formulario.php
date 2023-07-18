@@ -38,19 +38,19 @@
         <tbody>
             <tr>
                 <td>NOMBRE</td>
-                <td id="nombrePais"></td>
+                <td id="nombrePersonaje"></td>
             </tr>
             <tr>
                 <td>RAZA</td>
-                <td id="poblacionPais"></td>
+                <td id="estadoPersonaje"></td>
             </tr>
             <tr>
                 <td>ESPECIE</td>
-                <td id="capitalPais"></td>
+                <td id="especiePersonaje"></td>
             </tr>
             <tr>
                 <td>BANDERA</td>
-                <td><img src="" alt="" id="banderaPais"></td>
+                <td><img src="" alt="" id="imagenPersonaje"></td>
             </tr>
         </tbody>
     </table> 
